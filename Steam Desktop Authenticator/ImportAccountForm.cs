@@ -38,7 +38,7 @@ namespace Steam_Desktop_Authenticator
                 bool AppManifestData_encrypted = AppManifestData.Encrypted;
                 if (AppManifestData_encrypted == true)
                 {
-                    MessageBox.Show("You can't import an .maFile because the existing account in the app is encrypted.\nDecrypt it and try again.");
+                    MessageBox.Show("您无法导入.maFile文件，因为应用程序中的现有帐户是加密的。解密.maFile文件，然后重试。");
                     this.Close();
                 }
                 else if (AppManifestData_encrypted == false)
@@ -47,13 +47,13 @@ namespace Steam_Desktop_Authenticator
                 }
                 else
                 {
-                    MessageBox.Show("invalid value for variable 'encrypted' inside manifest.json");
+                    MessageBox.Show("manifest.json文件中变量'encrypted'的值无效");
                     this.Close();
                 }
             }
             else
             {
-                MessageBox.Show("An Error occurred, Restart the program!");
+                MessageBox.Show("出现错误，请重新启动程序！");
             }
             #endregion
 
@@ -107,7 +107,7 @@ namespace Steam_Desktop_Authenticator
 
                                 if (loginForm.Session == null || loginForm.Session.SteamID == 0)
                                 {
-                                    MessageBox.Show("Login failed. Try to import this account again.", "Account Import", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("登录失败。请尝试再次导入此帐户。", "帐户导入", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     return;
                                 }
 
@@ -117,7 +117,7 @@ namespace Steam_Desktop_Authenticator
 
                             // Save account
                             mManifest.SaveAccount(maFile, false);
-                            MessageBox.Show("Account Imported!", "Account Import", MessageBoxButtons.OK);
+                            MessageBox.Show("账号已导入！", "帐户导入", MessageBoxButtons.OK);
                             #endregion
                         }
                         else
@@ -176,7 +176,7 @@ namespace Steam_Desktop_Authenticator
                                 catch (Exception)
                                 {
                                     ReadManifestEx = "1";
-                                    MessageBox.Show("Invalid content inside manifest.json!\nImport Failed.");
+                                    MessageBox.Show("manifest.json中的内容无效！导入失败。");
                                 }
 
 
@@ -206,7 +206,7 @@ namespace Steam_Desktop_Authenticator
 
                                                 if (loginForm.Session == null || loginForm.Session.SteamID == 0)
                                                 {
-                                                    MessageBox.Show("Login failed. Try to import this account again.", "Account Import", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    MessageBox.Show("登录失败。请尝试再次导入此帐户。", "帐户导入", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                                     return;
                                                 }
 
@@ -216,28 +216,28 @@ namespace Steam_Desktop_Authenticator
 
                                             // Save account
                                             mManifest.SaveAccount(maFile, false);
-                                            MessageBox.Show("Account Imported!\nYour Account in now Decrypted!", "Account Import", MessageBoxButtons.OK);
+                                            MessageBox.Show("帐户已导入！您的帐户现在已解密！", "帐户导入", MessageBoxButtons.OK);
                                         }
                                     }
                                     else
                                     {
                                         if (ImportFileName_Found == "0")
                                         {
-                                            MessageBox.Show("Account not found inside manifest.json.\nImport Failed.");
+                                            MessageBox.Show("在manifest.json中找不到帐户。。导入失败。");
                                         }
                                         else if (Salt_Found == null && IV_Found == null)
                                         {
-                                            MessageBox.Show("manifest.json does not contain encrypted data.\nYour account may be unencrypted!\nImport Failed.");
+                                            MessageBox.Show("manifest.json不包含加密数据。。您的帐户可能未加密！。导入失败。");
                                         }
                                         else
                                         {
                                             if (IV_Found == null)
                                             {
-                                                MessageBox.Show("manifest.json does not contain: encryption_iv\nImport Failed.");
+                                                MessageBox.Show("manifest.json不包含：encryption_iv。导入失败。");
                                             }
                                             else if (IV_Found == null)
                                             {
-                                                MessageBox.Show("manifest.json does not contain: encryption_salt\nImport Failed.");
+                                                MessageBox.Show("manifest.json不包含：encryption_salt。导入失败。");
                                             }
                                         }
                                     }
@@ -248,7 +248,7 @@ namespace Steam_Desktop_Authenticator
                             }
                             else
                             {
-                                MessageBox.Show("manifest.json is missing!\nImport Failed.");
+                                MessageBox.Show("manifest.json文件丢失！导入失败。");
                             }
                             #endregion //Import Encripted maFile END
                         }
@@ -256,7 +256,7 @@ namespace Steam_Desktop_Authenticator
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("This file is not a valid SteamAuth maFile.\nImport Failed.");
+                        MessageBox.Show("此文件不是有效的SteamAuth Mafile。导入失败。");
                     }
                 }
             }

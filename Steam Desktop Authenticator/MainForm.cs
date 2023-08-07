@@ -54,7 +54,7 @@ namespace Steam_Desktop_Authenticator
             }
             catch (ManifestParseException)
             {
-                MessageBox.Show("Unable to read your settings. Try restating SDA.", "Steam Desktop Authenticator", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("无法读取您的设置。尝试重新启动SDA。", "Steam桌面验证器", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
 
@@ -76,11 +76,11 @@ namespace Steam_Desktop_Authenticator
                     }
                 }
 
-                btnManageEncryption.Text = "Manage Encryption";
+                btnManageEncryption.Text = "管理密码";
             }
             else
             {
-                btnManageEncryption.Text = "Setup Encryption";
+                btnManageEncryption.Text = "设置加密";
             }
 
             btnManageEncryption.Enabled = manifest.Entries.Count > 0;
@@ -129,7 +129,7 @@ namespace Steam_Desktop_Authenticator
             if (currentAccount == null) return;
 
             string oText = btnTradeConfirmations.Text;
-            btnTradeConfirmations.Text = "Loading...";
+            btnTradeConfirmations.Text = "载入中...";
             btnTradeConfirmations.Text = oText;
 
             ConfirmationFormWeb confirms = new ConfirmationFormWeb(currentAccount);
@@ -140,7 +140,7 @@ namespace Steam_Desktop_Authenticator
         {
             if (manifest.Encrypted)
             {
-                InputForm currentPassKeyForm = new InputForm("Enter current passkey", true);
+                InputForm currentPassKeyForm = new InputForm("输入当前密钥", true);
                 currentPassKeyForm.ShowDialog();
 
                 if (currentPassKeyForm.Canceled)
@@ -150,7 +150,7 @@ namespace Steam_Desktop_Authenticator
 
                 string curPassKey = currentPassKeyForm.txtBox.Text;
 
-                InputForm changePassKeyForm = new InputForm("Enter new passkey, or leave blank to remove encryption.");
+                InputForm changePassKeyForm = new InputForm("输入新的密钥，或留空以删除加密。");
                 changePassKeyForm.ShowDialog();
 
                 if (changePassKeyForm.Canceled && !string.IsNullOrEmpty(changePassKeyForm.txtBox.Text))
@@ -158,7 +158,7 @@ namespace Steam_Desktop_Authenticator
                     return;
                 }
 
-                InputForm changePassKeyForm2 = new InputForm("Confirm new passkey, or leave blank to remove encryption.");
+                InputForm changePassKeyForm2 = new InputForm("确认新的密钥，或留空以删除加密。");
                 changePassKeyForm2.ShowDialog();
 
                 if (changePassKeyForm2.Canceled && !string.IsNullOrEmpty(changePassKeyForm.txtBox.Text))
@@ -171,7 +171,7 @@ namespace Steam_Desktop_Authenticator
 
                 if (newPassKey != confirmPassKey)
                 {
-                    MessageBox.Show("Passkeys do not match.");
+                    MessageBox.Show("密钥不匹配。");
                     return;
                 }
 
@@ -227,15 +227,15 @@ namespace Steam_Desktop_Authenticator
         {
             if (manifest.Encrypted)
             {
-                MessageBox.Show("You cannot remove accounts from the manifest file while it is encrypted.", "Remove from manifest", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("对清单文件进行加密时，不能从清单文件中删除帐户。", "从清单中删除", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                DialogResult res = MessageBox.Show("This will remove the selected account from the manifest file.\nUse this to move a maFile to another computer.\nThis will NOT delete your maFile.", "Remove from manifest", MessageBoxButtons.OKCancel);
+                DialogResult res = MessageBox.Show("这将从清单文件中删除所选帐户。\使用此操作可将maFile移动到另一台计算机。\n这不会删除您的maFile。", "从清单中删除", MessageBoxButtons.OKCancel);
                 if (res == DialogResult.OK)
                 {
                     manifest.RemoveAccount(currentAccount, false);
-                    MessageBox.Show("Account removed from manifest.\nYou can now move its maFile to another computer and import it using the File menu.", "Remove from manifest");
+                    MessageBox.Show("已从清单中删除帐户。\n现在，您可以将其maFile移动到另一台计算机，并使用“文件”菜单导入它。", "从清单中删除");
                     loadAccountsList();
                 }
             }
@@ -267,7 +267,7 @@ namespace Steam_Desktop_Authenticator
             // Check for a valid refresh token first
             if (currentAccount.Session.IsRefreshTokenExpired())
             {
-                MessageBox.Show("Your session has expired. Use the login again button under the selected account menu.", "Deactivate Authenticator", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("您的会话已过期。使用所选帐户菜单下的“再次登录”按钮。", "停用身份验证器", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -314,7 +314,7 @@ namespace Steam_Desktop_Authenticator
                 string enteredCode = confirmationDialog.txtBox.Text.ToUpper();
                 if (enteredCode != confCode)
                 {
-                    MessageBox.Show("Confirmation codes do not match. Steam Guard not removed.");
+                    MessageBox.Show("确认代码不匹配。Steam保护未取消。");
                     return;
                 }
 
@@ -439,7 +439,7 @@ namespace Steam_Desktop_Authenticator
 
             try
             {
-                lblStatus.Text = "Checking confirmations...";
+                lblStatus.Text = "正在检查确认。。。";
 
                 foreach (var acc in accs)
                 {
@@ -456,13 +456,13 @@ namespace Steam_Desktop_Authenticator
                     {
                         try
                         {
-                            lblStatus.Text = "Refreshing session...";
+                            lblStatus.Text = "正在刷新会话。。。";
                             await acc.Session.RefreshAccessToken();
-                            lblStatus.Text = "Checking confirmations...";
+                            lblStatus.Text = "正在检查确认。。。";
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.Message, "Steam Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(ex.Message, "Steam 登录错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                         }
                     }
@@ -669,7 +669,7 @@ namespace Steam_Desktop_Authenticator
         {
             if (newVersion > currentVersion)
             {
-                labelUpdate.Text = "Download new version"; // Show the user a new version is available if they press no
+                labelUpdate.Text = "下载新版本"; // Show the user a new version is available if they press no
                 DialogResult updateDialog = MessageBox.Show(String.Format("A new version is available! Would you like to download it now?\nYou will update from version {0} to {1}", Application.ProductVersion, newVersion.ToString()), "New Version", MessageBoxButtons.YesNo);
                 if (updateDialog == DialogResult.Yes)
                 {
@@ -701,7 +701,7 @@ namespace Steam_Desktop_Authenticator
             }
             catch (Exception)
             {
-                MessageBox.Show("Failed to check for updates.");
+                MessageBox.Show("未检查到更新。");
             }
         }
 

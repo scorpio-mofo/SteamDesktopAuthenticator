@@ -27,33 +27,23 @@ namespace Steam_Desktop_Authenticator
             {
                 // After 2 tries tell the user that there seems to be an issue
                 if (deviceCodesGenerated > 2)
-                    MessageBox.Show("There seems to be an issue logging into your account with these two factor codes. Are you sure SDA is still your authenticator?");
+                    MessageBox.Show("使用这两个因素代码登录您的帐户似乎有问题。你确定SDA仍然是你的验证器吗？");
 
                 await Task.Delay(30000);
             }
 
-            string deviceCode;
-
-            if (account == null)
-            {
-                MessageBox.Show("This account already has an authenticator linked. You must remove that authenticator to add SDA as your authenticator.", "Steam Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
-            }
-            else
-            {
-                deviceCode = await account.GenerateSteamGuardCodeAsync();
-                deviceCodesGenerated++;
-            }
+            string deviceCode = await account.GenerateSteamGuardCodeAsync();
+            deviceCodesGenerated++;
 
             return deviceCode;
         }
 
         public Task<string> GetEmailCodeAsync(string email, bool previousCodeWasIncorrect)
         {
-            string message = "Enter the code sent to your email:";
+            string message = "输入发送到您的电子邮件的代码:";
             if (previousCodeWasIncorrect)
             {
-                message = "The code you provided was invalid. Enter the code sent to your email:";
+                message = "您提供的代码无效。输入发送到您的电子邮件的代码:";
             }
 
             InputForm emailForm = new InputForm(message);
