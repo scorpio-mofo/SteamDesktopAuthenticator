@@ -42,7 +42,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(366, 73);
             this.label1.TabIndex = 0;
-            this.label1.Text = "欢迎使用Steam桌面验证器（禹州汉化版）";
+            this.label1.Text = "欢迎使用Steam桌面令牌（禹州汉化版）";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnImportConfig
@@ -73,7 +73,7 @@
             this.btnJustStart.Name = "btnJustStart";
             this.btnJustStart.Size = new System.Drawing.Size(366, 52);
             this.btnJustStart.TabIndex = 4;
-            this.btnJustStart.Text = "我想把没有绑过验证器的新账号绑定到桌面验证器。";
+            this.btnJustStart.Text = "我想把没有绑过令牌的新账号绑定到桌面令牌。";
             this.btnJustStart.UseVisualStyleBackColor = true;
             this.btnJustStart.Click += new System.EventHandler(this.btnJustStart_Click);
             // 
@@ -92,7 +92,7 @@
             this.MaximizeBox = false;
             this.Name = "WelcomeForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Steam桌面验证器（禹州汉化版）";
+            this.Text = "Steam桌面令牌（禹州汉化版）";
             this.ResumeLayout(false);
 
         }

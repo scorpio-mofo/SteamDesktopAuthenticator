@@ -45,7 +45,7 @@ namespace Steam_Desktop_Authenticator
             if (!accept2)
             {
                 // Allow user to confirm first
-                lblStatus.Text = "再按接受确认";
+                lblStatus.Text = "再次接受确认";
                 btnAccept.BackColor = Color.FromArgb(128, 255, 128);
                 accept2 = true;
             }
